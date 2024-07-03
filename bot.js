@@ -1,5 +1,6 @@
 const { Client, IntentsBitField } = require('discord.js')
 require('dotenv').config()
+const wait = require('node:timers/promises').setTimeout;
 
 const client = new Client({
     intents: [
@@ -16,7 +17,6 @@ client.on('ready', (c) => {
 })
 
 client.on('messageCreate', (msg) => {
-
     if(msg.author.bot) {
         return;
     }
@@ -24,6 +24,27 @@ client.on('messageCreate', (msg) => {
     if(msg.content === 'hello') {
         msg.reply('sup')
     }
+})
+
+client.on('interactionCreate', async(interaction) => {
+    if(!interaction.isChatInputCommand()) return
+
+
+    try {
+         if(interaction.commandName === 'hey') {
+        await interaction.deferReply({ ephemeral: true });
+        await interaction.followUp('hey there!');
+    }
+
+    if(interaction.commandName === 'ping') {
+        
+        await interaction.deferReply({ ephemeral: true });
+        await interaction.followUp('pong!');
+    }
+    } catch (error) {
+        console.log(error)
+    }
+   
 })
 
 client.login(process.env.TOKEN)

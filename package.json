@@ -1,6 +1,9 @@
 {
   "name": "xyz-discord-bot",
   "version": "1.0.0",
+  "nodemonConfig": {
+    "ignore": ["/node_modules/"]
+  },
   "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
